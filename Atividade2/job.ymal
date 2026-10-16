@@ -3,7 +3,7 @@ resources:
     rocket_launch:
       name: rocket_launch
       schedule:
-        quartz_cron_expression: 53 7 17 * * ?
+        quartz_cron_expression: "0 0 5 ? * MON-FRI"
         timezone_id: America/Sao_Paulo
         pause_status: UNPAUSED
       tasks:
