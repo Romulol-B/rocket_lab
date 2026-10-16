@@ -1,0 +1,35 @@
+resources:
+  jobs:
+    rocket_launch:
+      name: rocket_launch
+      schedule:
+        quartz_cron_expression: 53 7 17 * * ?
+        timezone_id: America/Sao_Paulo
+        pause_status: UNPAUSED
+      tasks:
+        - task_key: Landing
+          notebook_task:
+            notebook_path: /Workspace/Users/romin.nf@gmail.com/rocket_lab/Atividade2/00_Organizacao_do_ambiente
+            source: WORKSPACE
+        - task_key: To_Bronze
+          depends_on:
+            - task_key: Landing
+          notebook_task:
+            notebook_path: /Workspace/Users/romin.nf@gmail.com/rocket_lab/Atividade2/Landing_to_Bronze
+            source: WORKSPACE
+        - task_key: To_Silver
+          depends_on:
+            - task_key: To_Bronze
+          notebook_task:
+            notebook_path: /Workspace/Users/romin.nf@gmail.com/rocket_lab/Atividade2/Bronze_to_Silver
+            source: WORKSPACE
+        - task_key: To_Gold
+          depends_on:
+            - task_key: To_Silver
+          notebook_task:
+            notebook_path: /Workspace/Users/romin.nf@gmail.com/rocket_lab/Atividade2/Silver_to_Gold
+            source: WORKSPACE
+      queue:
+        enabled: true
+      performance_target: PERFORMANCE_OPTIMIZED
+
